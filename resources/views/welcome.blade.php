@@ -5,13 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>Laravel</title>
 
     <script src="/js/app.js"></script>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-
+    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <!-- Styles -->
     <style>
         html, body {
@@ -19,79 +21,80 @@
             color: #636b6f;
             font-family: 'Raleway', sans-serif;
             font-weight: 100;
-            height: 100vh;
-            margin: 0;
         }
 
-        .full-height {
-            height: 100vh;
+        body {
+            padding: 0 2em;
         }
 
-        .flex-center {
-            align-items: center;
-            display: flex;
-            justify-content: center;
+        .userBlock {
+            margin: 1em;
+            padding: 1em;
+            border: solid 1px;
+            border-radius: 15px;
         }
 
-        .position-ref {
-            position: relative;
+        .todos {
+            margin-top: 0.5em;
         }
 
-        .top-right {
-            position: absolute;
-            right: 10px;
-            top: 18px;
+        .userName {
+            font-size: 16pt;
         }
 
-        .content {
-            text-align: center;
+        #dataAlert {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            right: 20px;
         }
 
-        .title {
-            font-size: 84px;
-        }
-
-        .links > a {
-            color: #636b6f;
-            padding: 0 25px;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: .1rem;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-
-        .m-b-md {
-            margin-bottom: 30px;
-        }
     </style>
 </head>
 <body>
-<div class="flex-center position-ref full-height">
-    @if (Route::has('login'))
-        <div class="top-right links">
-            @if (Auth::check())
-                <a href="{{ url('/home') }}">Home</a>
-            @else
-                <a href="{{ url('/login') }}">Login</a>
-                <a href="{{ url('/register') }}">Register</a>
-            @endif
-        </div>
-    @endif
 
-    <div class="content">
-        <div class="title m-b-md">
-            Laravel
+<div>
+    <h1 class="center-block">User Todos</h1>
+    @foreach(\UserTodo\User::all() as $user)
+        <div class="userBlock">
+            <div class="userHeader">
+                <strong class="userName">{{ $user->name }}</strong>
+                ({{ $user->username }})
+                <a href="mailto:{{$user->email}}"><span class="glyphicon glyphicon-envelope"></span></a>
+                <a href="tel:{{ $user->phone }}"><span class="glyphicon glyphicon-earphone"></span></a>
+                <a href="http://{{ $user->website }}"><span class="glyphicon glyphicon-globe"></span></a>
+            </div>
+            <div class="todos">
+                @foreach($user->todos as $todo)
+                    <div class="">
+                        @if($todo->completed)
+                            <span class="glyphicon glyphicon-check"></span> <s>{{ $todo->title }}</s>
+                        @else
+                            <span class="glyphicon glyphicon-unchecked"></span> <span>{{ $todo->title }}</span>
+                        @endif
+                    </div>
+                @endforeach
+            </div>
         </div>
-
-        <div class="links">
-            <a href="https://laravel.com/docs">Documentation</a>
-            <a href="https://laracasts.com">Laracasts</a>
-            <a href="https://laravel-news.com">News</a>
-            <a href="https://forge.laravel.com">Forge</a>
-            <a href="https://github.com/laravel/laravel">GitHub</a>
-        </div>
-    </div>
+    @endforeach
 </div>
+
+<div id="dataAlert" class="alert alert-info">
+    Alert Placeholder
+</div>
+
+<script type="text/javascript">
+    Echo.channel('incoming-data')
+        .listen('UserDataImported', (e) => {
+            var alert = $("#dataAlert");
+            alert[0].innerText = 'Got updated data for user ' + e.user.name;
+            alert.show();
+            setTimeout(() => {
+                alert.hide();
+            }, 5000);
+        });
+
+</script>
+
 </body>
 </html>

@@ -4,16 +4,15 @@ namespace UserTodo\Events;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use UserTodo\User;
 
-class UserDataImported
+class UserDataImported implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $broadcastChannel = "incoming-data";
     public $user;
 
     /**
@@ -33,6 +32,6 @@ class UserDataImported
      */
     public function broadcastOn()
     {
-        return new PrivateChannel($this->broadcastChannel);
+        return new Channel('incoming-data');
     }
 }

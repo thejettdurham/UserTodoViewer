@@ -173,7 +173,7 @@ return [
          */
         UserTodo\Providers\AppServiceProvider::class,
         UserTodo\Providers\AuthServiceProvider::class,
-        // UserTodo\Providers\BroadcastServiceProvider::class,
+        UserTodo\Providers\BroadcastServiceProvider::class,
         UserTodo\Providers\EventServiceProvider::class,
         UserTodo\Providers\RouteServiceProvider::class,
         UserTodo\Providers\LogConfigServiceProvider::class,

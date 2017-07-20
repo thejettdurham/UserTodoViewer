@@ -2,7 +2,7 @@
 
 namespace UserTodo\Listeners;
 
-use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Log;
 use UserTodo\Events\UserDataImported;
 
 class UserDataPublisher
@@ -15,7 +15,6 @@ class UserDataPublisher
      */
     public function handle(UserDataImported $event)
     {
-        // Publish a message containing the user who's data was updated
-        Redis::publish($event->broadcastChannel, json_encode($event->user));
+        Log::info("Got updated data for user {$event->user->username}");
     }
 }

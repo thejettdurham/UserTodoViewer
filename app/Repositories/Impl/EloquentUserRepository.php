@@ -23,6 +23,18 @@ class EloquentUserRepository implements UserRepository
 
     public function addUserFromData($data): User
     {
-        // TODO: Implement addUserFromData() method.
+        $user = User::firstOrNew([
+            'id' => $data['id'],
+        ]);
+
+        $user->name     = $data['name'];
+        $user->username = $data['username'];
+        $user->email    = $data['email'];
+        $user->phone    = $data['phone'];
+        $user->website  = $data['website'];
+
+        $user->save();
+
+        return $user;
     }
 }

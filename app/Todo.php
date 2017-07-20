@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Todo extends Model
 {
+    public $incrementing = false;
     protected $table = 'todos';
     protected $guarded = [];
 

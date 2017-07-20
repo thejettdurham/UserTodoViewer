@@ -3,6 +3,7 @@
 namespace UserTodo\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 use UserTodo\Jobs\ImportUserDataJob;
 
 class ImportUserDataCommand extends Command
@@ -13,7 +14,7 @@ class ImportUserDataCommand extends Command
      * @var string
      */
     protected $signature = 'import:user
-                            {--all: Import all user data rather than a random user}
+                            {--all : Import all user data rather than a random user}
                             ';
 
     /**
@@ -36,11 +37,15 @@ class ImportUserDataCommand extends Command
             return $this->importAllUsers();
         }
 
-        $this->importUserById(random_int(1, 10));
+        $importUserId = random_int(1, 10);
+
+        Log::info("Importing data for user {$importUserId}");
+        $this->importUserById($importUserId);
     }
 
     protected function importAllUsers()
     {
+        Log::info('Importing all users');
         foreach (range(1, 10) as $i) {
             $this->importUserById($i);
         }

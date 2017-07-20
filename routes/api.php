@@ -12,4 +12,4 @@
 */
 
 Route::resource('users', 'UsersController');
-Route::resource('users.todos', \UserTodo\Http\Controllers\TodosController::class);
+Route::resource('users.todos', 'TodosController');

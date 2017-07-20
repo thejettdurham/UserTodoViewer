@@ -40,3 +40,12 @@ This little toy app was developed directly on a fresh [Laravel Homestead](https:
 - Open the app in a web browser. You should now see a list of users with their todos below.
 - While keeping the browser window open, issue the `php artisan import:user` command to update user data for a user at random.
 - When the user info is up-to-date, you should see a blue notification pop up in the lower right hand side of the screen in the browser. This notification will tell you the name of the user for which the data was updated.
+
+## Data Api
+
+All api routes start at `(your-hostname)/api`.
+
+- `GET /users`: Get all users
+- `GET /users/{id}`: Get single user by id
+- `GET /users/{id}/todos`: Get all todos for given user
+- `GET /users/{id}/todos/{id}`: Get specific todo for given user

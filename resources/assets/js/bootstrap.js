@@ -49,7 +49,7 @@ window.Pusher = require('pusher-js');
 
 window.Echo = new Echo({
     broadcaster: 'pusher',
-    key: '734379797bdeffc36936',
+    key: '734379797bdeffc36936', // TODO read this from .env
     namespace: 'UserTodo.Events',
     cluster: 'us2',
     encrypted: true,

@@ -19,3 +19,16 @@ A simple Laravel project to demonstrate my knowledge of the framework and abilit
 - The user and todo data will be exposed to the front-end via a REST API.
 - The server will publish a message to redis when an import/update job is complete
 - The client will subscribe to the messages published by the server and dynamically update the displayed data in real-time as needed
+
+## Running instructions
+
+This little toy app was developed directly on a fresh [Laravel Homestead](https://laravel.com/docs/5.4/homestead) environment, and these directions assume you're in the same environment.
+
+- Clone repository
+- `composer install` to install PHP dependencies
+- `npm install` to install JS dependencies for the front-end
+- Copy `.env.example` to `.env`
+- Update the `DB_DATABASE` and `PUSHER_*` variables as needed
+- Ensure your local database specified by `DB_DATABASE` is empty
+- `php artisan migrate`
+- `php artisan import:users --all` to perform the initial import of all users from the data source.

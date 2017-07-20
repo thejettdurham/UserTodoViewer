@@ -31,4 +31,12 @@ This little toy app was developed directly on a fresh [Laravel Homestead](https:
 - Update the `DB_DATABASE` and `PUSHER_*` variables as needed
 - Ensure your local database specified by `DB_DATABASE` is empty
 - `php artisan migrate`
-- `php artisan import:users --all` to perform the initial import of all users from the data source.
+- In screen or another terminal, start a queue worker with `php artisan queue:work`
+- `php artisan import:user --all` to perform the initial import of all users from the data source. (This work will be done on the queue worker)
+- In `/resources/assets/js/bootstrap.js`, update the `key` parameter in the `Echo` constructor in the bottom of the file to use your pusher app key (this will eventually be read from the server's .env at asset build time)
+- `npm run dev` to compile CSS and JS assets for dev (via Laravel Mix)
+- `php artisan key:generate` to generate the app key
+- Ensure your nginx configuration points to the `/public` folder
+- Open the app in a web browser. You should now see a list of users with their todos below.
+- While keeping the browser window open, issue the `php artisan import:user` command to update user data for a user at random.
+- When the user info is up-to-date, you should see a blue notification pop up in the lower right hand side of the screen in the browser. This notification will tell you the name of the user for which the data was updated.

@@ -86,6 +86,7 @@
 <script type="text/javascript">
     Echo.channel('incoming-data')
         .listen('UserDataImported', (e) => {
+            // TODO Actually update the user data on the page
             var alert = $("#dataAlert");
             alert[0].innerText = 'Got updated data for user ' + e.user.name;
             alert.show();

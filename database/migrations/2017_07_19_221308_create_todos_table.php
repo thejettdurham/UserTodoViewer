@@ -14,11 +14,13 @@ class CreateTodosTable extends Migration
     public function up()
     {
         Schema::create('todos', function (Blueprint $table) {
-            $table->increments('id');
+            $table->unsignedInteger('id');
             $table->unsignedInteger('user_id')->references('id')->on('users');
             $table->string('title');
             $table->boolean('completed');
             $table->timestamps();
+
+            $table->primary('id');
         });
     }
 

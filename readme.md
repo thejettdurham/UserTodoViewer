@@ -1,4 +1,4 @@
-# User Todo API
+# User Todo Viewer
 
 A simple Laravel project to demonstrate my knowledge of the framework and ability to work within it.
 

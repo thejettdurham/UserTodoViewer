@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use UserTodo\Events\UserDataImported;
 use UserTodo\Repositories\Contracts\DataRepository;
 use UserTodo\Repositories\Contracts\TodoRepository;
 use UserTodo\Repositories\Contracts\UserRepository;
@@ -44,5 +45,7 @@ class ImportUserDataJob implements ShouldQueue
         foreach ($todosData as $todoData) {
             $todoRepo->addUserTodoFromData($user, $todoData);
         }
+
+        event(new UserDataImported($user));
     }
 }

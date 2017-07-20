@@ -2,7 +2,6 @@
 
 namespace UserTodo\Providers;
 
-use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -13,8 +12,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'UserTodo\Events\Event' => [
-            'UserTodo\Listeners\EventListener',
+        'UserTodo\Events\UserDataImported' => [
+            'UserTodo\Listeners\UserDataPublisher',
         ],
     ];
 

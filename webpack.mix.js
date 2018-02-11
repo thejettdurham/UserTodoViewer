@@ -11,5 +11,7 @@ let mix = require('laravel-mix');
  |
  */
 
+// This is a comment to represent a change
+
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css');
